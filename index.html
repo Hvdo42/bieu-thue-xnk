@@ -66,6 +66,11 @@ header p{font-size:12px;opacity:.85;margin-top:2px}
 .ch-main{background:#fff;border-radius:8px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,.08);max-height:82vh;overflow-y:auto}
 .ch-title{font-size:16px;font-weight:700;color:#1565C0;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #e3f2fd}
 .ch-placeholder{color:#888;padding:20px;text-align:center}
+.ch-search-bar{margin-bottom:10px}
+.ch-search-bar input{width:100%;border:1.5px solid #ccc;border-radius:6px;padding:8px 12px;font-size:13px;outline:none;box-sizing:border-box;transition:border-color .15s}
+.ch-search-bar input:focus{border-color:#1565C0}
+.sec-divider{border-top:2px solid #1976D2;margin:16px 0 12px;padding-top:14px}
+.sec-divider-lbl{font-weight:700;color:#1976D2;font-size:15px;margin-bottom:8px}
 mark{background:#FFF176;padding:0 1px;border-radius:2px}
 footer{background:#37474F;color:#CFD8DC;text-align:center;padding:14px 20px;font-size:12px;margin-top:28px}
 footer a{color:#80CBC4}
@@ -160,6 +165,9 @@ footer a{color:#80CBC4}
 [data-theme="dark"] .det-k{color:#6868a0}
 [data-theme="dark"] .ch-item{border-bottom-color:#2a2a40}
 [data-theme="dark"] .ch-item:hover{background:#252540}
+[data-theme="dark"] .ch-search-bar input{background:#1e1e2e;border-color:#334;color:#c0c0d8}
+[data-theme="dark"] .sec-divider{border-top-color:#334}
+[data-theme="dark"] .sec-divider-lbl{color:#90CAF9}
 [data-theme="dark"] .calc-fg input,[data-theme="dark"] .calc-fg select{background:#252540;border-color:#444;color:#e0e0e0}
 [data-theme="dark"] .calc-hint{background:#252540;border-color:#444;color:#a0b0d0}
 [data-theme="dark"] .calc-table th{background:#252555;color:#90CAF9}
@@ -236,71 +244,13 @@ footer a{color:#80CBC4}
   <strong>&#9888; Lưu ý quan trọng:</strong> Công cụ chỉ phục vụ <strong>tra cứu nhanh và tham khảo cá nhân</strong>. Không thay thế văn bản pháp lý chính thức. <strong>Luôn đối chiếu với biểu thuế gốc của Bộ Tài chính</strong> trước khi sử dụng trong thực tế.
 </div>
 <div class="tabs">
-  <button class="tab-btn active" data-tab="t1" onclick="showTab('t1',this)">&#128269; Tìm kiếm</button>
+  <button class="tab-btn active" data-tab="t1" onclick="showTab('t1',this)">&#128170; Tính thuế &amp; Tra cứu</button>
   <button class="tab-btn" data-tab="t2" onclick="showTab('t2',this)">&#128218; Duyệt Chương</button>
   <button class="tab-btn" data-tab="t3" onclick="showTab('t3',this)">&#128216; Chú thích</button>
-  <button class="tab-btn" data-tab="t4" onclick="showTab('t4',this)">&#128170; Tính thuế</button>
 </div>
-<!-- Tab 1: Search -->
+<!-- Tab 1: Tính thuế & Tra cứu -->
 <div id="t1" class="tab-content active">
-  <div class="search-wrap">
-    <input id="s-inp" type="text" autocomplete="off"
-      placeholder="Nhập mã HS (vd: 7210, 3926) hoặc tên hàng (vd: thép cuộn, xi măng, kính cường lực)&#8230;">
-  </div>
-  <div class="filter-bar">
-    <span>Lọc:</span>
-    <span class="f-chip active" onclick="setFilter(this,'all')">Tất cả</span>
-    <span class="f-chip" onclick="setFilter(this,'0nkud')">NK ưu đãi 0%</span>
-    <span class="f-chip" onclick="setFilter(this,'ttdb')">Có TTĐB</span>
-    <span class="f-chip" onclick="setFilter(this,'0evfta')">EVFTA 0%</span>
-    <span class="f-chip" onclick="setFilter(this,'0cptpp')">CPTPP 0%</span>
-  </div>
-  <div class="s-stats" id="s-stats"></div>
-  <div id="s-res"></div>
-</div>
-<!-- Tab 2: Browse -->
-<div id="t2" class="tab-content">
-  <div class="browse-wrap" id="browse-wrap">
-    <div class="ch-sidebar" id="ch-list">
-      <button id="sb-tog" class="sidebar-tog" onclick="toggleSidebar()">&#9664; Thu gọn</button>
-    </div>
-    <div class="ch-main" id="ch-main">
-      <div class="ch-placeholder">&#128072; Chọn một Chương bên trái để xem danh sách mã hàng.</div>
-    </div>
-  </div>
-</div>
-<!-- Tab 3: Glossary -->
-<div id="t3" class="tab-content">
-  <div style="max-width:900px">
-<div class="gloss-section"><div class="gloss-h">Giải thích ký hiệu thuế suất</div><table class="gloss-table"><thead><tr><th style="width:100px">Ký hiệu</th><th>Tên đầy đủ &amp; Mô tả</th></tr></thead><tbody><tr><td><span class="gloss-key">NK thường</span></td><td><div class="gloss-name">Thuế NK thông thường</div><div class="gloss-desc">Áp dụng cho hàng từ nước không có FTA với Việt Nam. Mức cao nhất.</div><div class="gloss-ref">&#128196; Văn bản: 15/2023/QĐ-TTg</div></td></tr>
-<tr><td><span class="gloss-key">NK ưu đãi</span></td><td><div class="gloss-name">Thuế NK ưu đãi (MFN – Tối huệ quốc)</div><div class="gloss-desc">Dành cho thành viên WTO (hầu hết các nước). Thấp hơn NK thông thường.</div><div class="gloss-ref">&#128196; Văn bản: 26/2023/NĐ-CP; 144/2024/NĐ-CP</div></td></tr>
-<tr><td><span class="gloss-key">VAT</span></td><td><div class="gloss-name">Thuế Giá trị gia tăng (GTGT / VAT)</div><div class="gloss-desc">Thường 10%, thiết yếu 8%, miễn 0%. Ký hiệu "*/8/10" = miễn thuế / 8% / 10% tùy từng trường hợp.</div><div class="gloss-ref">&#128196; Văn bản: 174/2025/NĐ-CP; 181/2025/NĐ-CP</div></td></tr>
-<tr><td><span class="gloss-key">ACFTA</span></td><td><div class="gloss-name">ACFTA – ASEAN–Trung Quốc FTA</div><div class="gloss-desc">Khu vực thương mại tự do ASEAN – Trung Quốc. Mẫu C/O: E.</div><div class="gloss-ref">&#128196; Văn bản: 118/2022/NĐ-CP</div></td></tr>
-<tr><td><span class="gloss-key">ATIGA</span></td><td><div class="gloss-name">ATIGA – Thương mại hàng hóa ASEAN</div><div class="gloss-desc">Áp dụng giữa 10 nước ASEAN (Brunei, Campuchia, Indonesia, Lào, Malaysia, Myanmar, Philippines, Singapore, Thái Lan, Việt Nam). Mẫu C/O: D.</div><div class="gloss-ref">&#128196; Văn bản: 126/2022/NĐ-CP</div></td></tr>
-<tr><td><span class="gloss-key">AJCEP</span></td><td><div class="gloss-name">AJCEP – ASEAN–Nhật Bản</div><div class="gloss-desc">Đối tác kinh tế toàn diện ASEAN – Nhật Bản. Mẫu C/O: AJ.</div><div class="gloss-ref">&#128196; Văn bản: 120/2022/NĐ-CP</div></td></tr>
-<tr><td><span class="gloss-key">VJEPA</span></td><td><div class="gloss-name">VJEPA – Việt Nam–Nhật Bản</div><div class="gloss-desc">Hiệp định đối tác kinh tế song phương Việt Nam – Nhật Bản. Mẫu C/O: JV.</div><div class="gloss-ref">&#128196; Văn bản: 124/2022/NĐ-CP</div></td></tr>
-<tr><td><span class="gloss-key">AKFTA</span></td><td><div class="gloss-name">AKFTA – ASEAN–Hàn Quốc</div><div class="gloss-desc">Hiệp định thương mại tự do ASEAN – Hàn Quốc. Mẫu C/O: AK.</div><div class="gloss-ref">&#128196; Văn bản: 119/2022/NĐ-CP</div></td></tr>
-<tr><td><span class="gloss-key">AANZFTA</span></td><td><div class="gloss-name">AANZFTA – ASEAN–Úc–New Zealand</div><div class="gloss-desc">FTA ASEAN – Australia – New Zealand. Mẫu C/O: AANZ.</div><div class="gloss-ref">&#128196; Văn bản: 121/2022/NĐ-CP</div></td></tr>
-<tr><td><span class="gloss-key">AIFTA</span></td><td><div class="gloss-name">AIFTA – ASEAN–Ấn Độ</div><div class="gloss-desc">FTA ASEAN – Ấn Độ. Mẫu C/O: AI.</div><div class="gloss-ref">&#128196; Văn bản: 122/2022/NĐ-CP</div></td></tr>
-<tr><td><span class="gloss-key">VKFTA</span></td><td><div class="gloss-name">VKFTA – Việt Nam–Hàn Quốc</div><div class="gloss-desc">FTA song phương Việt Nam – Hàn Quốc (thuế tốt hơn AKFTA). Mẫu C/O: VK.</div><div class="gloss-ref">&#128196; Văn bản: 125/2022/NĐ-CP</div></td></tr>
-<tr><td><span class="gloss-key">VCFTA</span></td><td><div class="gloss-name">VCFTA – Việt Nam–Chile</div><div class="gloss-desc">Hiệp định FTA Việt Nam – Chile. Mẫu C/O: VC.</div><div class="gloss-ref">&#128196; Văn bản: 112/2022/NĐ-CP</div></td></tr>
-<tr><td><span class="gloss-key">VN-EAEU</span></td><td><div class="gloss-name">VN-EAEU – Liên minh Kinh tế Á-Âu</div><div class="gloss-desc">Nga, Belarus, Kazakhstan, Armenia, Kyrgyzstan. Mẫu C/O: EAV.</div><div class="gloss-ref">&#128196; Văn bản: 113/2022/NĐ-CP</div></td></tr>
-<tr><td><span class="gloss-key">CPTPP</span></td><td><div class="gloss-name">CPTPP – Xuyên Thái Bình Dương</div><div class="gloss-desc">Nhật, Canada, Mexico, Peru, Chile, New Zealand, Úc, Singapore, Brunei, Malaysia, Việt Nam. Mẫu C/O: CPTPP.</div><div class="gloss-ref">&#128196; Văn bản: 115/2022/NĐ-CP</div></td></tr>
-<tr><td><span class="gloss-key">AHKFTA</span></td><td><div class="gloss-name">AHKFTA – ASEAN–Hồng Kông</div><div class="gloss-desc">FTA ASEAN – Hồng Kông. Mẫu C/O: AHK.</div><div class="gloss-ref">&#128196; Văn bản: 123/2022/NĐ-CP</div></td></tr>
-<tr><td><span class="gloss-key">VN-Cuba</span></td><td><div class="gloss-name">Hiệp định Việt Nam–Cuba</div><div class="gloss-desc">Hiệp định thương mại ưu đãi song phương Việt Nam – Cuba.</div></td></tr>
-<tr><td><span class="gloss-key">EVFTA</span></td><td><div class="gloss-name">EVFTA – EU–Việt Nam</div><div class="gloss-desc">27 nước EU. Mẫu C/O: EUR.1 hoặc khai báo xuất xứ REX.</div><div class="gloss-ref">&#128196; Văn bản: 116/2022/NĐ-CP</div></td></tr>
-<tr><td><span class="gloss-key">UKVFTA</span></td><td><div class="gloss-name">UKVFTA – Anh–Việt Nam</div><div class="gloss-desc">Vương quốc Anh sau Brexit. Mẫu C/O: UKV.</div><div class="gloss-ref">&#128196; Văn bản: 117/2022/NĐ-CP</div></td></tr>
-<tr><td><span class="gloss-key">VN-Lào</span></td><td><div class="gloss-name">Hiệp định Việt Nam–Lào</div><div class="gloss-desc">Hiệp định thương mại ưu đãi Việt Nam – Lào.</div><div class="gloss-ref">&#128196; Văn bản: 206/2025/NĐ-CP</div></td></tr>
-<tr><td><span class="gloss-key">VN-Cam</span></td><td><div class="gloss-name">Hiệp định Việt Nam–Campuchia</div><div class="gloss-desc">Hiệp định thương mại ưu đãi Việt Nam – Campuchia.</div></td></tr>
-<tr><td><span class="gloss-key">VIFTA</span></td><td><div class="gloss-name">VIFTA – Việt Nam–Israel</div><div class="gloss-desc">Hiệp định FTA Việt Nam – Israel. Mẫu C/O: VI.</div><div class="gloss-ref">&#128196; Văn bản: 131/2024/NĐ-CP</div></td></tr>
-<tr><td><span class="gloss-key">RCEP</span></td><td><div class="gloss-name">RCEP – Đối tác Kinh tế Toàn diện KV</div><div class="gloss-desc">ASEAN + Trung Quốc, Nhật Bản, Hàn Quốc, Úc, New Zealand. Mẫu C/O: RCEP.</div><div class="gloss-ref">&#128196; Văn bản: 129/2022/NĐ-CP</div></td></tr>
-<tr><td><span class="gloss-key">TTĐB</span></td><td><div class="gloss-name">Thuế Tiêu thụ đặc biệt (TTĐB)</div><div class="gloss-desc">Hàng xa xỉ/có hại: rượu, thuốc lá, ô tô, xăng dầu... Tính trên (CIF + thuế NK). Mức thuế thường cao.</div></td></tr>
-<tr><td><span class="gloss-key">Xuất khẩu</span></td><td><div class="gloss-name">Thuế Xuất khẩu</div><div class="gloss-desc">Áp dụng khi xuất khẩu tài nguyên khoáng sản và một số mặt hàng hạn chế xuất khẩu.</div></td></tr>
-<tr><td><span class="gloss-key">BVMT</span></td><td><div class="gloss-name">Thuế Bảo vệ môi trường (BVMT)</div><div class="gloss-desc">Thuế tuyệt đối (đ/lít, đ/kg) áp dụng cho xăng dầu, than, túi nilon, dung dịch HCFC…</div></td></tr></tbody></table></div><div class="gloss-section" style="margin-top:20px"><div class="gloss-h">Lưu ý khi tra cứu</div><ul style="padding-left:18px;line-height:2;font-size:13px;color:#444"><li>Để hưởng thuế FTA, hàng hóa phải có <strong>giấy chứng nhận xuất xứ (C/O)</strong> hoặc khai báo xuất xứ hợp lệ.</li><li>VAT <strong>"0/8/10"</strong>: áp dụng mức nào tùy thuộc từng điều kiện cụ thể theo quy định VAT hiện hành.</li><li>VAT <strong>"*/8/10"</strong>: dấu * = hàng không chịu thuế; 8% hoặc 10% cho các trường hợp còn lại.</li><li>Thuế TTĐB tính trên (CIF + thuế NK); thuế VAT tính trên (CIF + thuế NK + TTĐB).</li><li>Biểu thuế có thể thay đổi theo từng năm. Luôn đối chiếu văn bản gốc trước khi khai báo hải quan.</li></ul></div>
-  </div>
-</div>
-<!-- Tab 4: Calculator -->
-<div id="t4" class="tab-content">
+  <div id="calc-section">
   <div class="calc-hdr">
     <label>&#128178; Tỷ giá USD/VNĐ:</label>
     <input type="number" id="c-exrate" value="25000" min="1" step="100">
@@ -308,7 +258,7 @@ footer a{color:#80CBC4}
   </div>
   <div class="calc-form-card">
     <div class="cft">&#10133; Thêm hàng hóa vào danh sách</div>
-    <div class="calc-hint">&#128161; Tip: Tìm mã HS ở tab <strong>Tìm kiếm</strong>, nhấn nút <strong>&#128722; Thêm vào Tính thuế</strong> để điền thông tin tự động.</div>
+    <div class="calc-hint">&#128161; Tip: Tìm mã HS ở <strong>phần Tra cứu bên dưới</strong>, nhấn nút <strong>&#128722; Thêm vào Tính thuế</strong> để điền thông tin tự động.</div>
     <!-- Hàng 1: Mã HS + Mô tả -->
     <div class="cf-row">
       <div class="calc-fg" style="width:170px;flex-shrink:0">
@@ -374,6 +324,69 @@ footer a{color:#80CBC4}
     <div class="empty-calc">Chưa có hàng hóa nào. Nhập hàng vào form bên trên rồi nhấn <strong>Thêm vào danh sách</strong>.</div>
   </div>
   <div id="calc-sum"></div>
+  </div>
+  <!-- Tra cứu mã HS -->
+  <div class="sec-divider"><div class="sec-divider-lbl">&#128269; Tra cứu mã HS</div></div>
+  <div class="search-wrap">
+    <input id="s-inp" type="text" autocomplete="off"
+      placeholder="Nhập mã HS (vd: 7210, 3926) hoặc tên hàng (vd: thép cuộn, xi măng, kính cường lực)&#8230;">
+  </div>
+  <div class="filter-bar">
+    <span>Lọc:</span>
+    <span class="f-chip active" onclick="setFilter(this,'all')">Tất cả</span>
+    <span class="f-chip" onclick="setFilter(this,'0nkud')">NK ưu đãi 0%</span>
+    <span class="f-chip" onclick="setFilter(this,'ttdb')">Có TTĐB</span>
+    <span class="f-chip" onclick="setFilter(this,'0evfta')">EVFTA 0%</span>
+    <span class="f-chip" onclick="setFilter(this,'0cptpp')">CPTPP 0%</span>
+  </div>
+  <div class="s-stats" id="s-stats"></div>
+  <div id="s-res"></div>
+</div>
+<!-- Tab 2: Browse -->
+<div id="t2" class="tab-content">
+  <div class="browse-wrap" id="browse-wrap">
+    <div class="ch-sidebar" id="ch-list">
+      <button id="sb-tog" class="sidebar-tog" onclick="toggleSidebar()">&#9664; Thu gọn</button>
+    </div>
+    <div class="ch-main" id="ch-main">
+      <div class="ch-search-bar">
+        <input id="br-search" type="text" autocomplete="off" placeholder="&#128269; Tìm mã HS hoặc tên hàng trong toàn bộ biểu thuế&#8230;" oninput="doBrowseSearch(this.value)">
+      </div>
+      <div id="br-res">
+        <div class="ch-placeholder">&#128072; Chọn một Chương bên trái để xem danh sách mã hàng.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Tab 3: Glossary -->
+<div id="t3" class="tab-content">
+  <div style="max-width:900px">
+<div class="gloss-section"><div class="gloss-h">Giải thích ký hiệu thuế suất</div><table class="gloss-table"><thead><tr><th style="width:100px">Ký hiệu</th><th>Tên đầy đủ &amp; Mô tả</th></tr></thead><tbody><tr><td><span class="gloss-key">NK thường</span></td><td><div class="gloss-name">Thuế NK thông thường</div><div class="gloss-desc">Áp dụng cho hàng từ nước không có FTA với Việt Nam. Mức cao nhất.</div><div class="gloss-ref">&#128196; Văn bản: 15/2023/QĐ-TTg</div></td></tr>
+<tr><td><span class="gloss-key">NK ưu đãi</span></td><td><div class="gloss-name">Thuế NK ưu đãi (MFN – Tối huệ quốc)</div><div class="gloss-desc">Dành cho thành viên WTO (hầu hết các nước). Thấp hơn NK thông thường.</div><div class="gloss-ref">&#128196; Văn bản: 26/2023/NĐ-CP; 144/2024/NĐ-CP</div></td></tr>
+<tr><td><span class="gloss-key">VAT</span></td><td><div class="gloss-name">Thuế Giá trị gia tăng (GTGT / VAT)</div><div class="gloss-desc">Thường 10%, thiết yếu 8%, miễn 0%. Ký hiệu "*/8/10" = miễn thuế / 8% / 10% tùy từng trường hợp.</div><div class="gloss-ref">&#128196; Văn bản: 174/2025/NĐ-CP; 181/2025/NĐ-CP</div></td></tr>
+<tr><td><span class="gloss-key">ACFTA</span></td><td><div class="gloss-name">ACFTA – ASEAN–Trung Quốc FTA</div><div class="gloss-desc">Khu vực thương mại tự do ASEAN – Trung Quốc. Mẫu C/O: E.</div><div class="gloss-ref">&#128196; Văn bản: 118/2022/NĐ-CP</div></td></tr>
+<tr><td><span class="gloss-key">ATIGA</span></td><td><div class="gloss-name">ATIGA – Thương mại hàng hóa ASEAN</div><div class="gloss-desc">Áp dụng giữa 10 nước ASEAN (Brunei, Campuchia, Indonesia, Lào, Malaysia, Myanmar, Philippines, Singapore, Thái Lan, Việt Nam). Mẫu C/O: D.</div><div class="gloss-ref">&#128196; Văn bản: 126/2022/NĐ-CP</div></td></tr>
+<tr><td><span class="gloss-key">AJCEP</span></td><td><div class="gloss-name">AJCEP – ASEAN–Nhật Bản</div><div class="gloss-desc">Đối tác kinh tế toàn diện ASEAN – Nhật Bản. Mẫu C/O: AJ.</div><div class="gloss-ref">&#128196; Văn bản: 120/2022/NĐ-CP</div></td></tr>
+<tr><td><span class="gloss-key">VJEPA</span></td><td><div class="gloss-name">VJEPA – Việt Nam–Nhật Bản</div><div class="gloss-desc">Hiệp định đối tác kinh tế song phương Việt Nam – Nhật Bản. Mẫu C/O: JV.</div><div class="gloss-ref">&#128196; Văn bản: 124/2022/NĐ-CP</div></td></tr>
+<tr><td><span class="gloss-key">AKFTA</span></td><td><div class="gloss-name">AKFTA – ASEAN–Hàn Quốc</div><div class="gloss-desc">Hiệp định thương mại tự do ASEAN – Hàn Quốc. Mẫu C/O: AK.</div><div class="gloss-ref">&#128196; Văn bản: 119/2022/NĐ-CP</div></td></tr>
+<tr><td><span class="gloss-key">AANZFTA</span></td><td><div class="gloss-name">AANZFTA – ASEAN–Úc–New Zealand</div><div class="gloss-desc">FTA ASEAN – Australia – New Zealand. Mẫu C/O: AANZ.</div><div class="gloss-ref">&#128196; Văn bản: 121/2022/NĐ-CP</div></td></tr>
+<tr><td><span class="gloss-key">AIFTA</span></td><td><div class="gloss-name">AIFTA – ASEAN–Ấn Độ</div><div class="gloss-desc">FTA ASEAN – Ấn Độ. Mẫu C/O: AI.</div><div class="gloss-ref">&#128196; Văn bản: 122/2022/NĐ-CP</div></td></tr>
+<tr><td><span class="gloss-key">VKFTA</span></td><td><div class="gloss-name">VKFTA – Việt Nam–Hàn Quốc</div><div class="gloss-desc">FTA song phương Việt Nam – Hàn Quốc (thuế tốt hơn AKFTA). Mẫu C/O: VK.</div><div class="gloss-ref">&#128196; Văn bản: 125/2022/NĐ-CP</div></td></tr>
+<tr><td><span class="gloss-key">VCFTA</span></td><td><div class="gloss-name">VCFTA – Việt Nam–Chile</div><div class="gloss-desc">Hiệp định FTA Việt Nam – Chile. Mẫu C/O: VC.</div><div class="gloss-ref">&#128196; Văn bản: 112/2022/NĐ-CP</div></td></tr>
+<tr><td><span class="gloss-key">VN-EAEU</span></td><td><div class="gloss-name">VN-EAEU – Liên minh Kinh tế Á-Âu</div><div class="gloss-desc">Nga, Belarus, Kazakhstan, Armenia, Kyrgyzstan. Mẫu C/O: EAV.</div><div class="gloss-ref">&#128196; Văn bản: 113/2022/NĐ-CP</div></td></tr>
+<tr><td><span class="gloss-key">CPTPP</span></td><td><div class="gloss-name">CPTPP – Xuyên Thái Bình Dương</div><div class="gloss-desc">Nhật, Canada, Mexico, Peru, Chile, New Zealand, Úc, Singapore, Brunei, Malaysia, Việt Nam. Mẫu C/O: CPTPP.</div><div class="gloss-ref">&#128196; Văn bản: 115/2022/NĐ-CP</div></td></tr>
+<tr><td><span class="gloss-key">AHKFTA</span></td><td><div class="gloss-name">AHKFTA – ASEAN–Hồng Kông</div><div class="gloss-desc">FTA ASEAN – Hồng Kông. Mẫu C/O: AHK.</div><div class="gloss-ref">&#128196; Văn bản: 123/2022/NĐ-CP</div></td></tr>
+<tr><td><span class="gloss-key">VN-Cuba</span></td><td><div class="gloss-name">Hiệp định Việt Nam–Cuba</div><div class="gloss-desc">Hiệp định thương mại ưu đãi song phương Việt Nam – Cuba.</div></td></tr>
+<tr><td><span class="gloss-key">EVFTA</span></td><td><div class="gloss-name">EVFTA – EU–Việt Nam</div><div class="gloss-desc">27 nước EU. Mẫu C/O: EUR.1 hoặc khai báo xuất xứ REX.</div><div class="gloss-ref">&#128196; Văn bản: 116/2022/NĐ-CP</div></td></tr>
+<tr><td><span class="gloss-key">UKVFTA</span></td><td><div class="gloss-name">UKVFTA – Anh–Việt Nam</div><div class="gloss-desc">Vương quốc Anh sau Brexit. Mẫu C/O: UKV.</div><div class="gloss-ref">&#128196; Văn bản: 117/2022/NĐ-CP</div></td></tr>
+<tr><td><span class="gloss-key">VN-Lào</span></td><td><div class="gloss-name">Hiệp định Việt Nam–Lào</div><div class="gloss-desc">Hiệp định thương mại ưu đãi Việt Nam – Lào.</div><div class="gloss-ref">&#128196; Văn bản: 206/2025/NĐ-CP</div></td></tr>
+<tr><td><span class="gloss-key">VN-Cam</span></td><td><div class="gloss-name">Hiệp định Việt Nam–Campuchia</div><div class="gloss-desc">Hiệp định thương mại ưu đãi Việt Nam – Campuchia.</div></td></tr>
+<tr><td><span class="gloss-key">VIFTA</span></td><td><div class="gloss-name">VIFTA – Việt Nam–Israel</div><div class="gloss-desc">Hiệp định FTA Việt Nam – Israel. Mẫu C/O: VI.</div><div class="gloss-ref">&#128196; Văn bản: 131/2024/NĐ-CP</div></td></tr>
+<tr><td><span class="gloss-key">RCEP</span></td><td><div class="gloss-name">RCEP – Đối tác Kinh tế Toàn diện KV</div><div class="gloss-desc">ASEAN + Trung Quốc, Nhật Bản, Hàn Quốc, Úc, New Zealand. Mẫu C/O: RCEP.</div><div class="gloss-ref">&#128196; Văn bản: 129/2022/NĐ-CP</div></td></tr>
+<tr><td><span class="gloss-key">TTĐB</span></td><td><div class="gloss-name">Thuế Tiêu thụ đặc biệt (TTĐB)</div><div class="gloss-desc">Hàng xa xỉ/có hại: rượu, thuốc lá, ô tô, xăng dầu... Tính trên (CIF + thuế NK). Mức thuế thường cao.</div></td></tr>
+<tr><td><span class="gloss-key">Xuất khẩu</span></td><td><div class="gloss-name">Thuế Xuất khẩu</div><div class="gloss-desc">Áp dụng khi xuất khẩu tài nguyên khoáng sản và một số mặt hàng hạn chế xuất khẩu.</div></td></tr>
+<tr><td><span class="gloss-key">BVMT</span></td><td><div class="gloss-name">Thuế Bảo vệ môi trường (BVMT)</div><div class="gloss-desc">Thuế tuyệt đối (đ/lít, đ/kg) áp dụng cho xăng dầu, than, túi nilon, dung dịch HCFC…</div></td></tr></tbody></table></div><div class="gloss-section" style="margin-top:20px"><div class="gloss-h">Lưu ý khi tra cứu</div><ul style="padding-left:18px;line-height:2;font-size:13px;color:#444"><li>Để hưởng thuế FTA, hàng hóa phải có <strong>giấy chứng nhận xuất xứ (C/O)</strong> hoặc khai báo xuất xứ hợp lệ.</li><li>VAT <strong>"0/8/10"</strong>: áp dụng mức nào tùy thuộc từng điều kiện cụ thể theo quy định VAT hiện hành.</li><li>VAT <strong>"*/8/10"</strong>: dấu * = hàng không chịu thuế; 8% hoặc 10% cho các trường hợp còn lại.</li><li>Thuế TTĐB tính trên (CIF + thuế NK); thuế VAT tính trên (CIF + thuế NK + TTĐB).</li><li>Biểu thuế có thể thay đổi theo từng năm. Luôn đối chiếu văn bản gốc trước khi khai báo hải quan.</li></ul></div>
+  </div>
 </div>
 <footer>
   <p>&#128194; <strong>Biểu thuế XNK 2026 – Tra cứu</strong> &nbsp;&#124;&nbsp; Tác giả: <strong>Võ Đỗ Hùng</strong></p>
@@ -694,7 +707,11 @@ function doSearch() {
 }
 
 /* ── Browse by Chapter ── */
+var _currentCh = null;
 function selectChapter(ch) {
+  _currentCh = ch;
+  var inp = document.getElementById('br-search');
+  if (inp) inp.value = '';
   document.querySelectorAll('.ch-item').forEach(function(el) {
     el.classList.toggle('active', el.dataset.ch === ch);
   });
@@ -703,9 +720,43 @@ function selectChapter(ch) {
   var html = '<div class="ch-title">Chương ' + parseInt(ch, 10) + ': ' + esc(c.vi || '') + '</div>';
   if (c.en) html += '<div style="font-size:12px;color:#888;margin-bottom:12px">' + esc(c.en) + '</div>';
   html += renderList(items, '');
+  var res = document.getElementById('br-res');
+  if (res) res.innerHTML = html;
   var main = document.getElementById('ch-main');
-  main.innerHTML = html;
-  main.scrollTop = 0;
+  if (main) main.scrollTop = 0;
+}
+
+function doBrowseSearch(q) {
+  var res = document.getElementById('br-res');
+  if (!res) return;
+  var q2 = q.trim();
+  if (!q2) {
+    if (_currentCh) {
+      var c = D.chapters[_currentCh] || {};
+      var items = _chMap[_currentCh] || [];
+      var html = '<div class="ch-title">Chương ' + parseInt(_currentCh, 10) + ': ' + esc(c.vi || '') + '</div>';
+      if (c.en) html += '<div style="font-size:12px;color:#888;margin-bottom:12px">' + esc(c.en) + '</div>';
+      html += renderList(items, '');
+      res.innerHTML = html;
+    } else {
+      res.innerHTML = '<div class="ch-placeholder">&#128072; Chọn một Chương bên trái để xem danh sách mã hàng.</div>';
+    }
+    return;
+  }
+  var nq = norm(q2);
+  var matched;
+  if (/^\d+$/.test(q2)) {
+    matched = D.items.filter(function(it) { return it.h.startsWith(q2); });
+  } else {
+    matched = D.items.filter(function(_, i) { return _normIdx[i].indexOf(nq) >= 0; });
+  }
+  var total = matched.length;
+  if (total === 0) {
+    res.innerHTML = '<div class="s-stats">Không tìm thấy kết quả cho "' + esc(q2) + '". Thử gõ không dấu hoặc mã HS prefix.</div>';
+    return;
+  }
+  res.innerHTML = '<div class="s-stats">Hiển thị ' + Math.min(total, MAX_SHOW).toLocaleString() +
+    ' / ' + total.toLocaleString() + ' kết quả cho "' + esc(q2) + '".</div>' + renderList(matched, nq);
 }
 
 /* ── Tabs ── */
@@ -777,8 +828,10 @@ function addToCalcFromItem(id) {
   var item = _itemById[id];
   if (!item) return;
   _fillCalcForm(item);
-  showTab('t4', null);
-  window.scrollTo({top: 0, behavior: 'smooth'});
+  showTab('t1', null);
+  var cs = document.getElementById('calc-section');
+  if (cs) cs.scrollIntoView({behavior:'smooth', block:'start'});
+  else window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
 function _fillCalcForm(item) {
@@ -842,7 +895,7 @@ function calcLookupHS() {
   if (!hs) { alert('Nhập mã HS để tra cứu.'); return; }
   var found = D.items.filter(function(it) { return it.h === hs; });
   if (!found.length) {
-    alert('Không tìm thấy mã HS "' + hs + '".\nThử tìm kiếm ở tab Tìm kiếm.');
+    alert('Không tìm thấy mã HS "' + hs + '".\nThử tìm kiếm ở phần Tra cứu bên dưới.');
     return;
   }
   _fillCalcForm(found[0]);
@@ -1261,7 +1314,7 @@ function importCSV(input) {
     _renderCalcTable();
     if (added) {
       alert('Đã import ' + added + ' dòng.' + (skipped?' Bỏ qua '+skipped+' dòng lỗi.':''));
-      showTab('t4', null);
+      showTab('t1', null);
     } else { alert('Không import được. Kiểm tra định dạng CSV.'); }
   };
   reader.readAsText(file,'UTF-8');
