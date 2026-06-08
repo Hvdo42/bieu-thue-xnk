@@ -23,9 +23,25 @@ Công cụ tra cứu **Biểu thuế Xuất nhập khẩu Việt Nam 2026** — 
 
 ## Cách dùng
 
-**Online:** Nhấn link ở trên
+**Online:** Nhấn link ở trên.
 
-**Offline:** Tải file `index.html` → mở bằng Chrome / Edge / Firefox
+**Offline (không cần mạng):** Chạy `python build.py` → mở `local/index.html`.
+
+---
+
+## Cấu trúc mã nguồn
+
+| File | Mục đích |
+|------|----------|
+| `template.html` | App shell (HTML/CSS/JS) — chỉnh sửa tính năng ở đây |
+| `app_data.json` | Dữ liệu 12.000 mã HS — cập nhật khi có biểu thuế mới |
+| `build.py` | Build pipeline |
+| `index.html` | Web build tự động (fetch data) — GitHub Pages serve file này |
+
+```bash
+python build.py        # → local/index.html  (standalone 6MB, mở file:// được)
+python build.py --web  # → dist/index.html + dist/app_data.json
+```
 
 ---
 

@@ -394,7 +394,7 @@ footer a{color:#80CBC4}
   <p style="margin-top:8px;opacity:.6;font-size:11px">v1.1.0 &nbsp;&#8226;&nbsp; Dữ liệu: 2026-04-05 &nbsp;&#8226;&nbsp; <a href="https://github.com/hvdo42/bieu-thue-xnk" target="_blank" style="color:#80CBC4">GitHub</a></p>
 </footer>
 <script>
-window._DATA = null;
+/*__DATA__*/
 
 var D = window._DATA;
 var _normIdx = null;
@@ -786,24 +786,7 @@ function _copyFallback(text) {
   document.execCommand('copy'); document.body.removeChild(ta);
 }
 
-document.addEventListener('DOMContentLoaded', function(){
-  var _bar = document.createElement('div');
-  _bar.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#1565C0;color:#fff;padding:10px 18px;font-size:14px;z-index:9999;text-align:center';
-  _bar.textContent = '⏳ Đang tải dữ liệu biểu thuế...';
-  document.body.prepend(_bar);
-  fetch('./app_data.json')
-    .then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-    .then(function(d){
-      window._DATA = d;
-      D = d;
-      document.body.removeChild(_bar);
-      init();
-    })
-    .catch(function(e){
-      _bar.style.background = '#c62828';
-      _bar.textContent = '⚠ Không tải được dữ liệu (' + e.message + '). Dùng bản offline local/index.html.';
-    });
-});
+/*__INIT__*/
 
 /* ══════════════════════════════════════════
    TAB 4: Tính thuế
